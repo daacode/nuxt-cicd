@@ -1,4 +1,19 @@
+const routerBase = process.env.DEPLOY_ENV === "GH_PAGES"
+    ? {
+        router: {
+          base: "/nuxt-cicd/"
+        }
+      }
+    : {};
+
+module.exports = {
+  ...routerBase,
+}
+
 export default {
+
+  ...routerBase,
+
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -33,6 +48,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
   ],
+
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
