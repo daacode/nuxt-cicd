@@ -1,14 +1,12 @@
-const routerBase = process.env.DEPLOY_ENV === "GH_PAGES"
-    ? {
-        router: {
-          base: "/nuxt-cicd/"
-        }
-      }
-    : {};
+const routerBase = 
+    process.env.DEPLOY_ENV === "GH_PAGES"
+        ? {
+              router: {
+              base: "/nuxt-cicd/"
+              }
+          }
+        : {};
 
-module.exports = {
-  ...routerBase,
-}
 
 export default {
 
