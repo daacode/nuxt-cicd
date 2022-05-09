@@ -3,12 +3,12 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:16.15.0
     steps:
       - checkout
       - run:
           name: update-npm
-          command: "sudo npm install -g npm@5"
+          command: "sudo npm install -g npm@8"
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
