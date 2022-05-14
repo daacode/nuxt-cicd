@@ -1,46 +1,26 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build:
-    working_directory: ~/repo
+  say-hello:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/node:12.16
+      - image: cimg/base:stable
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
       - run:
-          name: update-npm
-          command: "sudo npm install -g npm@6"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: install-packages
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
+          name: "Say hello"
+          command: "echo Hello, World!"
 
-      - run:
-          name: test
-          command: npm run test
-
-      - run:
-          name: build-project
-          command: npm run generate:gh-pages
-      
-      - run:
-          name: Install and configure dependencies
-          command: |
-            npm install gh-pages --save-dev
-            git config user.email "adeneyeabiodun@gmail.com"
-            git config user.name "daacode"
-      - add_ssh_keys:
-          fingerprints:
-            - "c2:08:17:00:f0:90:43:32:bc:5c:1f:28:6d:01:25:c2"
-      - run:
-          name: Deploy docs to gh-pages branch
-          command: './node_modules/.bin/gh-pages --dotfiles --message "[skip ci] Updates" -d dist'
-      - store_artifacts:
-          path: test-results.xml
-          prefix: tests
-      - store_test_results:
-          path: test-results.xml
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  say-hello-workflow:
+    jobs:
+      - say-hello
