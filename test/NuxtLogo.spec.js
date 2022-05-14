@@ -1,9 +1,6 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import NuxtLogo from '@/components/NuxtLogo.vue'
 
-const factory = () => {
-  return shallowMount(NuxtLogo, {});
-}
 
 describe('NuxtLogo', () => {
   test('is a Vue instance', () => {
@@ -11,8 +8,8 @@ describe('NuxtLogo', () => {
     expect(wrapper.vm).toBeTruthy()
   });
 
-  test("renders properly", () => {
-    const wrapper = factory();
+  test("NuxtLogo renders properly", () => {
+    const wrapper = shallowMount(NuxtLogo, {})
     expect(wrapper.html()).toMatchSnapshot();
   });
 })
